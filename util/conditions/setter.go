@@ -197,6 +197,9 @@ func lexicographicLess(i, j *clusterv1.Condition) bool {
 // hasSameState returns true if a condition has the same state of another; state is defined
 // by the union of following fields: Type, Status, Reason, Severity and Message (it excludes LastTransitionTime).
 func hasSameState(i, j *clusterv1.Condition) bool {
+	if i == nil || j == nil {
+		return i == j
+	}
 	return i.Type == j.Type &&
 		i.Status == j.Status &&
 		i.Reason == j.Reason &&

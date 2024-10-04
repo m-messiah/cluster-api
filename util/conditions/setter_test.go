@@ -33,6 +33,16 @@ import (
 func TestHasSameState(t *testing.T) {
 	g := NewWithT(t)
 
+	// two nils
+	var nil2 *clusterv1.Condition
+	g.Expect(hasSameState(nil1, nil2)).To(BeTrue())
+
+	// nil condition 1
+	g.Expect(hasSameState(nil1, true1)).To(BeFalse())
+
+	// nil condition 2
+	g.Expect(hasSameState(true1, nil2)).To(BeFalse())
+
 	// same condition
 	falseInfo2 := falseInfo1.DeepCopy()
 	g.Expect(hasSameState(falseInfo1, falseInfo2)).To(BeTrue())
